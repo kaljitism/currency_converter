@@ -13,6 +13,11 @@ class _CurrencyConverterMaterialPageState
   double result = 0;
   final TextEditingController textEditingController = TextEditingController();
 
+  void convert() {
+    result = double.parse(textEditingController.text) / 81;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,43 +31,14 @@ class _CurrencyConverterMaterialPageState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "\$${result.toStringAsFixed(2)}",
-              style: const TextStyle(
-                fontSize: 55,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
+            ConvertedCurrencyResult(result: result),
             const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                controller: textEditingController,
-                style: const TextStyle(color: Colors.black),
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  hintText: '  Enter the amount to convert!',
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  prefixIcon: const Icon(Icons.currency_rupee),
-                  prefixIconColor: Colors.black,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(45),
-                  ),
-                ),
-              ),
-            ),
+            CurrencyTextField(textEditingController: textEditingController),
             const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextButton(
-                onPressed: () {
-                  result = double.parse(textEditingController.text) / 81;
-                  setState(() {});
-                },
+                onPressed: convert,
                 style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(Colors.black),
                   minimumSize:
@@ -76,6 +52,59 @@ class _CurrencyConverterMaterialPageState
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CurrencyTextField extends StatelessWidget {
+  const CurrencyTextField({
+    super.key,
+    required this.textEditingController,
+  });
+
+  final TextEditingController textEditingController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: TextField(
+        controller: textEditingController,
+        style: const TextStyle(color: Colors.black),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          hintText: '  Enter the amount to convert!',
+          hintStyle: const TextStyle(color: Colors.grey),
+          prefixIcon: const Icon(Icons.currency_rupee),
+          prefixIconColor: Colors.black,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(45),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ConvertedCurrencyResult extends StatelessWidget {
+  const ConvertedCurrencyResult({
+    super.key,
+    required this.result,
+  });
+
+  final double result;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "\$${result.toStringAsFixed(2)}",
+      style: const TextStyle(
+        fontSize: 55,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
       ),
     );
   }
