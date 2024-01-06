@@ -19,6 +19,12 @@ class _CurrencyConverterMaterialPageState
   }
 
   @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
@@ -57,6 +63,27 @@ class _CurrencyConverterMaterialPageState
   }
 }
 
+class ConvertedCurrencyResult extends StatelessWidget {
+  const ConvertedCurrencyResult({
+    super.key,
+    required this.result,
+  });
+
+  final double result;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "\$${result.toStringAsFixed(2)}",
+      style: const TextStyle(
+        fontSize: 55,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    );
+  }
+}
+
 class CurrencyTextField extends StatelessWidget {
   const CurrencyTextField({
     super.key,
@@ -84,27 +111,6 @@ class CurrencyTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(45),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ConvertedCurrencyResult extends StatelessWidget {
-  const ConvertedCurrencyResult({
-    super.key,
-    required this.result,
-  });
-
-  final double result;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      "\$${result.toStringAsFixed(2)}",
-      style: const TextStyle(
-        fontSize: 55,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
       ),
     );
   }

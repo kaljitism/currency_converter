@@ -19,6 +19,12 @@ class _CurrencyConverterCupertinoPageState
   }
 
   @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.activeGreen,
@@ -47,6 +53,27 @@ class _CurrencyConverterCupertinoPageState
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ConvertedCurrencyResult extends StatelessWidget {
+  const ConvertedCurrencyResult({
+    super.key,
+    required this.result,
+  });
+
+  final double result;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "\$${result.toStringAsFixed(2)}",
+      style: const TextStyle(
+        fontSize: 55,
+        fontWeight: FontWeight.bold,
+        color: CupertinoColors.white,
       ),
     );
   }
@@ -83,27 +110,6 @@ class CurrencyTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(45),
           color: CupertinoColors.white,
         ),
-      ),
-    );
-  }
-}
-
-class ConvertedCurrencyResult extends StatelessWidget {
-  const ConvertedCurrencyResult({
-    super.key,
-    required this.result,
-  });
-
-  final double result;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      "\$${result.toStringAsFixed(2)}",
-      style: const TextStyle(
-        fontSize: 55,
-        fontWeight: FontWeight.bold,
-        color: CupertinoColors.white,
       ),
     );
   }
