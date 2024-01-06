@@ -71,8 +71,10 @@ class CurrencyTextField extends StatelessWidget {
         placeholder: '  Enter the amount to convert!',
         placeholderStyle: const TextStyle(color: CupertinoColors.systemGrey),
         prefix: const Text(
-          '\u{20B9}',
+          '  \u{20B9}',
           style: TextStyle(
+            fontSize: 30,
+            color: CupertinoColors.black,
             fontWeight: FontWeight.w800,
           ),
         ),
